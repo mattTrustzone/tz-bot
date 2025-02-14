@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BOT_SCRIPT_LOCATION=${BOT_SCRIPT_LOCATION-"https://raw.githubusercontent.com/tz/tz-bot/master/tz-bot.sh"}
+BOT_SCRIPT_LOCATION=${BOT_SCRIPT_LOCATION-"https://raw.githubusercontent.com/mattTrustzone/tz-bot/master/tz-bot.sh"}
 
 function install_tzbot()
 {
