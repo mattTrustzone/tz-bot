@@ -2,7 +2,8 @@ tz-bot
 ===========
 
 This repository contains a wrapper script that makes it easier to use 
-Electronic Frontier Foundation's (EFF's) Certbot with the TRUSTZONE's ACME Pro GlobalSign server
+Electronic Frontier Foundation's (EFF's) Certbot with the TRUSTZONE's ACME Pro GlobalSign server.
+This wrapper is a fork of ZEROSSL's zerossl-bot
 
 Installation
 ------------
