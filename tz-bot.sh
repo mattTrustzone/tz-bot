@@ -12,7 +12,7 @@ CERTBOT_ARGS=()
 function prompt_for_eab_credentials() {
     read -p "Enter EAB KID: " _EAB_KID
     read -p "Enter EAB HMAC Key: " _EAB_HMAC_KEY
-    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --server "https://emea.acme.atlas.globalsign.com/directory")
+    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --register-unsafely-without-email  --server "https://emea.acme.atlas.globalsign.com/directory")
 }
 
 while [ "$#" -gt 0 ]; do
