@@ -12,7 +12,7 @@ CERTBOT_ARGS=()
 function prompt_for_eab_credentials() {
     read -p "Enter EAB KID: " _EAB_KID
     read -p "Enter EAB HMAC Key: " _EAB_HMAC_KEY
-    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --register-unsafely-without-email  --server "https://emea.acme.atlas.globalsign.com/directory")
+    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --no-eff-email  --server "https://emea.acme.atlas.globalsign.com/directory")
 }
 
 while [ "$#" -gt 0 ]; do
@@ -43,6 +43,9 @@ set -- "${CERTBOT_ARGS[@]}"
 if [[ -n $_API_KEY ]] || [[ -n $_EMAIL ]]; then
     prompt_for_eab_credentials
 fi
+
+# Debug: Print the Certbot command with arguments
+echo "Certbot command: certbot ${CERTBOT_ARGS[@]}"
 
 printf '%s ' certbot "${CERTBOT_ARGS[@]}"; echo
 certbot "${CERTBOT_ARGS[@]}"
