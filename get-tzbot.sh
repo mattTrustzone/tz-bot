@@ -16,6 +16,20 @@ if ! command -v certbot >/dev/null 2>&1; then
     fi
 fi
 
+# Check if Apache is installed and install the Certbot Apache plugin if necessary.
+if command -v apache2 >/dev/null 2>&1; then
+    echo "Apache is installed. Installing Certbot Apache plugin..."
+    sudo apt-get update
+    sudo apt-get install -y python3-certbot-apache
+fi
+
+# Check if Nginx is installed and install the Certbot Nginx plugin if necessary.
+if command -v nginx >/dev/null 2>&1; then
+    echo "Nginx is installed. Installing Certbot Nginx plugin..."
+    sudo apt-get update
+    sudo apt-get install -y python3-certbot-nginx
+fi
+
 function install_tzbot() {
     if ! curl -sf "$BOT_SCRIPT_LOCATION" -o /tmp/tz-bot; then
         echo "Error: Unable to download file from $BOT_SCRIPT_LOCATION"

@@ -11,7 +11,7 @@ CERTBOT_ARGS=()
 function prompt_for_eab_credentials() {
     read -p "Enter EAB KID: " _EAB_KID
     read -p "Enter EAB HMAC Key: " _EAB_HMAC_KEY
-    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --no-eff-email)
+    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --register-unsafely-without-email --no-eff-email)
     echo "EAB credentials added to CERTBOT_ARGS"
 }
 
