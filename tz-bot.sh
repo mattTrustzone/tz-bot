@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
 if [ ! -x "$(which certbot)" ]; then
-   echo You have to install certbot
+   echo "You have to install certbot"
    exit 1
 fi
 
@@ -12,40 +11,36 @@ CERTBOT_ARGS=()
 function prompt_for_eab_credentials() {
     read -p "Enter EAB KID: " _EAB_KID
     read -p "Enter EAB HMAC Key: " _EAB_HMAC_KEY
-    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --no-eff-email  --server "https://emea.acme.atlas.globalsign.com/directory")
+    CERTBOT_ARGS+=(--eab-kid "${_EAB_KID:?}" --eab-hmac-key "${_EAB_HMAC_KEY:?}" --key-type rsa --agree-tos --no-eff-email)
+    echo "EAB credentials added to CERTBOT_ARGS"
 }
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
         --tz-api-key=*)
             _API_KEY=${1#*=}
+            echo "API Key set to $_API_KEY"
         ;;
         --tz-api-key|-z)
            _API_KEY=$2
            shift
-        ;;
-        --tz-email=*)
-            _EMAIL=${1#*=}
-        ;;
-        --email|--tz-email|-m)
-           _EMAIL=$2
-           CERTBOT_ARGS+=(-m "$2")
-           shift
+           echo "API Key set to $_API_KEY"
         ;;
         *) CERTBOT_ARGS+=("$1") ;;
     esac
     shift
 done
 
+# Explicitly set the ACME server
+CERTBOT_ARGS+=(--server "https://emea.acme.atlas.globalsign.com/directory")
+echo "ACME server set in CERTBOT_ARGS"
+
 set -- "${CERTBOT_ARGS[@]}"
 
-# Instead of fetching credentials via an API, prompt the user for them.
-if [[ -n $_API_KEY ]] || [[ -n $_EMAIL ]]; then
-    prompt_for_eab_credentials
-fi
+# Always prompt for EAB credentials
+prompt_for_eab_credentials
 
 # Debug: Print the Certbot command with arguments
 echo "Certbot command: certbot ${CERTBOT_ARGS[@]}"
 
-printf '%s ' certbot "${CERTBOT_ARGS[@]}"; echo
 certbot "${CERTBOT_ARGS[@]}"

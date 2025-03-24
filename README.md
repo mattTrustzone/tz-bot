@@ -30,11 +30,11 @@ When prompted, provide your EAB KID (KeyID) and EAB HMAC Key (ACME MAC).
 ### Examples
 
 ```bash
-sudo tz-bot certonly --standalone -m henrik@example.com -d mydomain.example.com
+sudo tz-bot certonly --standalone -d mydomain.example.com
 ```
 
 ```bash
-sudo tz-bot --apache -m jacob@example.com -d myotherdomain.example.com
+sudo tz-bot --apache -d myotherdomain.example.com
 ```
 
 ```bash
